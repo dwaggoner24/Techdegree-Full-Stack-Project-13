@@ -20,7 +20,7 @@ export default function Courses() {
                     <h3 className="course--title">{course.title}</h3>
                 </Link>
                 })}
-                
+
             {/* link to create new courses */}
                 <Link className="course--module course--add--module" to="/courses/create">
                     <span className="course--add--title">

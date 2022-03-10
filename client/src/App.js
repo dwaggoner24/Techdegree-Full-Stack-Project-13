@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {
-  BrowserRouter as Router,
+  BrowserRouter,
   Routes,
   Route, 
 } from 'react-router-dom';
@@ -16,15 +16,15 @@ import UserSignUp from './components/UserSignUp';
 import UserSignOut from './components/UserSignOut';
 import NotFound from './components/NotFound';
 
-class App extends Component {
+class App extends Component { //modified from previous projects
   render() {
     return (
-      <Router>
+      <BrowserRouter>
         <div className="App">
           <Header />
 
           <Routes>
-            <Route exact path="/courses" component={Courses} />
+            <Route path="/courses" component={Courses} />
             <Route path="/signin" component={UserSignIn} />
             <Route path="/signup" component={UserSignUp} />\
             <Route path="/signout" component={UserSignOut} />
@@ -34,7 +34,7 @@ class App extends Component {
             <Route component={NotFound} />
           </Routes>
         </div>
-      </Router>
+      </BrowserRouter>
       );
     }
 }
