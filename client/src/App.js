@@ -24,14 +24,14 @@ class App extends Component { //modified from previous projects
           <Header />
 
           <Routes>
-            <Route path="/courses" component={Courses} />
-            <Route path="/signin" component={UserSignIn} />
-            <Route path="/signup" component={UserSignUp} />\
-            <Route path="/signout" component={UserSignOut} />
-            <Route path="/courses/:id/update" component={UpdateCourse} />
-            <Route path="/courses/create" component={CreateCourse} />
-            <Route path="/courses/:id" component={CourseDetail} />
-            <Route component={NotFound} />
+            <Route exact path="/" element={<Courses/>} />
+            <Route path="/signin" element={<UserSignIn/>} />
+            <Route path="/signup" element={<UserSignUp/>} />\
+            <Route path="/signout" element={<UserSignOut/>} />
+            <Route path="/courses/:id/update" element={<UpdateCourse/>} />
+            <Route path="/courses/create" element={<CreateCourse/>} />
+            <Route path="/courses/:id" element={<CourseDetail/>} />
+            <Route elements={<NotFound/>} />
           </Routes>
         </div>
       </BrowserRouter>
