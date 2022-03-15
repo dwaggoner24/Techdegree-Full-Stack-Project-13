@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, {useState, useEffect} from 'react';
 import {Link} from 'react-router-dom';
 
@@ -5,21 +6,19 @@ export default function Courses() {
     const [courses, setCourses] = useState([]);
 
     useEffect(() => {
-        fetch('https://localhost:5000/api/courses')
-            .then((res) => res.json())
-            .then((json) => setCourses(json.courses))
+        axios.get('http://localhost:5000/api/courses')
+            .then(res => {setCourses(res.data);})
             .catch(err => console.log('Oh no! Something went wrong fetching data', err))
-            }, []);
+            }, []) 
 
     return( //google resource
-    <main>
         <div className="wrap main--grid"> 
-            {courses.map((course) => {
-                <Link className="course--module course--link" to={`/courses/${course.id}`}>
+            {courses.map(course => (
+                <Link className="course--module course--link" to={`/courses/${course.id}`} key={course.id}>
                     <h2 className="course--label">Course</h2>
                     <h3 className="course--title">{course.title}</h3>
                 </Link>
-                })}
+            ))}
 
             {/* link to create new courses */}
                 <Link className="course--module course--add--module" to="/courses/create">
@@ -30,6 +29,5 @@ export default function Courses() {
                     </span>
                 </Link>
         </div>
-    </main>
     )  
 };

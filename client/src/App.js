@@ -16,7 +16,14 @@ import UserSignUp from './components/UserSignUp';
 import UserSignOut from './components/UserSignOut';
 import NotFound from './components/NotFound';
 
-class App extends Component { //modified from previous projects
+import PrivateRoute from './PrivateRoute';
+
+//New Imports
+import withContext from './Context';
+
+const UserSignUpWithContext = withContext(UserSignUp);
+
+class App extends Component { 
   render() {
     return (
       <BrowserRouter>
@@ -24,14 +31,14 @@ class App extends Component { //modified from previous projects
           <Header />
 
           <Routes>
-            <Route exact path="/" element={<Courses/>} />
-            <Route path="/signin" element={<UserSignIn/>} />
-            <Route path="/signup" element={<UserSignUp/>} />\
-            <Route path="/signout" element={<UserSignOut/>} />
-            <Route path="/courses/:id/update" element={<UpdateCourse/>} />
-            <Route path="/courses/create" element={<CreateCourse/>} />
-            <Route path="/courses/:id" element={<CourseDetail/>} />
-            <Route elements={<NotFound/>} />
+            <Route exact path="/" element={<Courses />} />
+            <Route path="/signin" element={<UserSignIn />} />
+            <Route path="/signup" element={<UserSignUpWithContext />} />\
+            <Route path="/signout" element={<UserSignOut />} />
+            <Route path="/courses/:id/update" element={<UpdateCourse />} />
+            <Route path="/courses/create" element={<CreateCourse />} />
+            <Route path="/courses/:id" element={<CourseDetail />} />
+            <Route component={<NotFound />} />
           </Routes>
         </div>
       </BrowserRouter>
