@@ -1,13 +1,11 @@
-// import React, {Component} from 'react'; 
-// import {Link} from 'react-router-dom';
-// import Form from './Form'; 
-
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
+import {Context} from '../Context';
 
 export default function UserSignUp() {
 
+    const context = useContext(Context);
     //declaring state
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
@@ -16,25 +14,27 @@ export default function UserSignUp() {
     const [errors, setErrors] = useState([]);
     const [data, setData] = useState(null);
 
-    const handleSubmit = () => {
+    const handleSubmit = (e) => {
+        e.preventDefault();
         setErrors([]);
-        const data = {
-            firstName: firstName,
-            lastName: lastName,
-            emailAddress: emailAddress,
-            password: password
-        }
-        axios.post(`http://localhost:5000/api/users`, data)
-            .then(res => {
-                setData(res.data);
-                setFirstName('');
-                setLastName('');
-                setEmailAddress('');
-                setPassword('');
-            })
-            .catch(err => {
-                setErrors(true)
-            });
+        // const data = {
+        //     firstName: firstName,
+        //     lastName: lastName,
+        //     emailAddress: emailAddress,
+        //     password: password
+        // }
+        context.actions.createUser(firstName, lastName, emailAddress, password);
+        // axios.post(`http://localhost:5000/api/users`, data)
+        //     .then(res => {
+        //         setData(res.data);
+        //         setFirstName('');
+        //         setLastName('');
+        //         setEmailAddress('');
+        //         setPassword('');
+        //     })
+        //     .catch(err => {
+        //         setErrors(true)
+        //     });
     }
 
     return(
