@@ -59,7 +59,7 @@ export default function UpdateCourese() { //external resource
                             <textarea id="materialsNeeded" name="materialsNeeded" value={materialsNeeded} onChange={(e) => setMaterialsNeeded(e.target.value)}>{materialsNeeded}</textarea>
                         </div>
                     </div>
-                    <button className="button" type="submit" onClick={handleSubmit}>Update Course</button><Link className="button button-secondary" onclick="submit" to="/">Cancel</Link>
+                    <button className="button" type="submit" onClick={handleSubmit}>Update Course</button><Link className="button button-secondary" onClick="submit" to="/">Cancel</Link>
                 </form>
             </div>
         </main>

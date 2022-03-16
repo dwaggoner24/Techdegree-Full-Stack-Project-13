@@ -16,7 +16,7 @@ import UserSignUp from './components/UserSignUp';
 import UserSignOut from './components/UserSignOut';
 import NotFound from './components/NotFound';
 
-import PrivateRoute from './PrivateRoute';
+// import PrivateRoute from './PrivateRoute';
 
 //New Imports
 import withContext from './Context';
