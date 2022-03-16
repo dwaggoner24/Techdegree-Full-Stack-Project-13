@@ -23,7 +23,7 @@ export default function UpdateCourese() { //external resource
             estimatedTime: estimatedTime,
             materialsNeeded: materialsNeeded
         }
-        axios.put(`http://localhost:5000/api/courses/${id}/update`, data)
+        axios.get(`http://localhost:5000/api/courses/${id}`, data)
             .then(res => {setData(res.data);
                           setTitle('');
                           setDescription('');
