@@ -1,10 +1,11 @@
 import axios from 'axios';
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import {Link, useParams} from 'react-router-dom';
+import {Context} from '../Context';
 
-export default function UpdateCourese() { //external resource
+export default function UpdateCourse() { //external resource
     
-    
+    const context = useContext(Context);
 
     let {id} = useParams()
 
@@ -15,6 +16,22 @@ export default function UpdateCourese() { //external resource
     const [loading, setLoading] = useState(false)
     const [errors, setErrors] = useState(false);
     const [data, setData] = useState(null);
+
+    const updateCourse = (e) => {
+        setErrors(false);
+        e.preventDefault();
+        const data = {
+            title: title,
+            description: description,
+            estimatedTime: estimatedTime,
+            materialsNeeded: materialsNeeded,
+            userId: context.authenticatedUser.id
+        }
+        axios.put(`http://localhost:5000/api/courses/${id}`, data)
+            .then(res => {setData(res.data);})
+            .catch(err => {console.log('Oh no! Something went wrong fetching data', err);
+        })
+    }
 
     useEffect(() => {
         axios.get(`http://localhost:5000/api/courses/${id}`, data)
@@ -29,22 +46,6 @@ export default function UpdateCourese() { //external resource
                 setErrors(true);
             });
     }, []);
-
-    const handleSubmit = (e) => {
-        setLoading(true);
-        setErrors(false);
-        e.preventDefault();
-        const data = {
-            title: title,
-            description: description,
-            estimatedTime: estimatedTime,
-            materialsNeeded: materialsNeeded
-        }
-        axios.put(`http://localhost:5000/api/courses/${id}`, data)
-            .then(res => console.log(res.data))
-            .catch(err => {console.log('Oh no! Something went wrong fetching data', err);
-        })
-    }
 
     return(
         <main>
@@ -69,7 +70,7 @@ export default function UpdateCourese() { //external resource
                             <textarea id="materialsNeeded" name="materialsNeeded" value={materialsNeeded} onChange={(e) => setMaterialsNeeded(e.target.value)}>{materialsNeeded}</textarea>
                         </div>
                     </div>
-                    <button className="button" type="submit" onClick={handleSubmit}>Update Course</button><Link className="button button-secondary" onClick="submit" to="/">Cancel</Link>
+                    <button className="button" type="submit" onClick={updateCourse}>Update Course</button><Link className="button button-secondary" onClick="submit" to="/">Cancel</Link>
                 </form>
             </div>
         </main>

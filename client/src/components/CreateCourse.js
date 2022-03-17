@@ -1,39 +1,40 @@
 import axios from 'axios';
-import React, {useState } from 'react'; 
+import React, { useState, useContext } from 'react'; 
 import {Link} from 'react-router-dom';
+import {Context} from '../Context';
 
 
 
 export default function CreateCoures() {
+
+    const context = useContext(Context);
     
     //creating state
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [estimatedTime, setEstimatedTime] = useState('');
     const [materialsNeeded, setMaterialsNeeded] = useState('');
-    const [loading, setLoading] = useState(false)
     const [errors, setErrors] = useState(false);
     const [data, setData] = useState(null);
 
-    const handleSubmit = () => {
-        setLoading(true);
+    const handleSubmit = (e) => {
+        e.preventDefault();
         setErrors(false);
         const data = {
             title: title,
             description: description,
             estimatedTime: estimatedTime,
-            materialsNeeded: materialsNeeded 
+            materialsNeeded: materialsNeeded,
+            userId: context.authenticatedUser.id 
         }
-        axios.post('http://localhost:5000/api/courses/create', data)
+        axios.post('http://localhost:5000/api/courses', data)
             .then(res => {setData(res.data);
                           setTitle('');
                           setDescription('')
                           setEstimatedTime('')
                           setMaterialsNeeded('')
-                          setLoading(false)
                         })
             .catch(err => {
-                setLoading(false);
                 setErrors(true);
             });
     }
@@ -42,13 +43,21 @@ export default function CreateCoures() {
         <main>
             <div className="wrap">
                 <h2>Create Course</h2>
-                <div className="validation--errors">
-                    <h3>Validation Errors</h3>
-                    <ul>
-                        <li>Please provide a value for "Title"</li>
-                        <li>Please provide a value for "Description"</li>
-                    </ul>
-                </div>
+                {
+                    errors.length > 0 ?
+                    (<div className="validation--errors">
+                        <h3>Validation Errors</h3>
+                        <ul>
+                            {errors.map((error, i) => {
+                                return (
+                                    <li key={i}>{error}</li>
+                                )
+                            })
+                          }
+                        </ul>
+                    </div>) : null 
+                }
+                
                 <form onSubmit={handleSubmit}>
                     <div className="main--flex">
                         <div>
@@ -74,3 +83,4 @@ export default function CreateCoures() {
         </main>
     )
 }
+    

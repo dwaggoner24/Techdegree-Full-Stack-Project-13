@@ -1,20 +1,30 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
+import {Context} from '../Context';
 
-const Header = () => {
+export default function Header({context}) {
     return (
         <header>
             <div className="wrap header--flex">
                 <h1 className="header--logo"><Link to="/">Courses</Link></h1>
                 <nav>
-                <ul className="header--signedout">
-                    <li><Link to="/signup">Sign Up</Link></li>
-                    <li><Link to="/signin">Sign In</Link></li>
-                </ul>
+                {/*Header authentication. Treehouse authentication workshop*/}
+                    {Context.authenticatedUser ? (
+                        <React.Fragment>
+                            <li>Welcome, {context.authenticatedUser.firstName} {context.authenticatedUser.lastName}!</li>
+                            <li><Link to="/signout">Sign Out</Link></li>
+                        </React.Fragment>
+                    ) : (
+                        <React.Fragment>
+                            <ul className="header--signedout">
+                                <li><Link to="/signup">Sign Up</Link></li>
+                                <li><Link to="/signin">Sign In</Link></li>
+                             </ul>
+                        </React.Fragment>
+                    )}
                 </nav>
             </div>
         </header>
     );
 }
 
-export default Header;
