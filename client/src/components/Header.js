@@ -1,15 +1,18 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {Link} from 'react-router-dom';
 import {Context} from '../Context';
 
-export default function Header({context}) {
+export default function Header() {
+
+    const context = useContext(Context);
+    
     return (
         <header>
             <div className="wrap header--flex">
                 <h1 className="header--logo"><Link to="/">Courses</Link></h1>
                 <nav>
                 {/*Header authentication. Treehouse authentication workshop*/}
-                    {Context.authenticatedUser ? (
+                    {context.authenticatedUser ? (
                         <React.Fragment>
                             <li>Welcome, {context.authenticatedUser.firstName} {context.authenticatedUser.lastName}!</li>
                             <li><Link to="/signout">Sign Out</Link></li>

@@ -1,19 +1,27 @@
 import React, { useContext, useState} from 'react';
-import {Link} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import {Context} from '../Context';
 
 export default function UserSignIn() {
 
     const context = useContext(Context);
+    let history = useNavigate //useNavigate instead of useHistory due to react version
+
     //state
     const [emailAddress, setEmailAddress] = useState('');
     const [password, setPassword] = useState('');
 
     const handleSubmit = (e) => {
-        e.preventDefault();
-        
-        context.actions.signIn(emailAddress, password);
+      e.preventDefault();
+      context.actions.signIn(emailAddress, password);
+      history('/');
     }
+
+    const cancel = (e) => { //need to figure out why cancel doesn't work
+        e.preventDefault();
+        history('/');
+    }
+
 
         return (
             <div>

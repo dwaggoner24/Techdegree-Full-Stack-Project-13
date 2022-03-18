@@ -12,8 +12,7 @@ export default function UserSignUp() {
     const [emailAddress, setEmailAddress] = useState('');
     const [password, setPassword] = useState('');
     const [errors, setErrors] = useState([]);
-    const [data, setData] = useState(null);
-
+    
     const handleSubmit = (e) => {
         e.preventDefault();
         setErrors([]);

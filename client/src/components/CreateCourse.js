@@ -1,43 +1,90 @@
 import axios from 'axios';
-import React, { useState, useContext } from 'react'; 
-import {Link} from 'react-router-dom';
+import React, { useState, useContext, useEffect } from 'react'; 
+import {Link, useNavigate} from 'react-router-dom';
 import {Context} from '../Context';
 
+export default function CreateCourse() {
 
-
-export default function CreateCoures() {
-
+    let history = useNavigate();
     const context = useContext(Context);
-    
-    //creating state
+
+    // // creating state
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [estimatedTime, setEstimatedTime] = useState('');
     const [materialsNeeded, setMaterialsNeeded] = useState('');
-    const [errors, setErrors] = useState(false);
-    const [data, setData] = useState(null);
+    const [errors, setErrors] = useState([]);
 
-    const handleSubmit = (e) => {
+
+
+
+    async function handleSubmit(e) { //google resource and context reference
         e.preventDefault();
-        setErrors(false);
-        const data = {
-            title: title,
-            description: description,
-            estimatedTime: estimatedTime,
-            materialsNeeded: materialsNeeded,
-            userId: context.authenticatedUser.id 
+        const userId = context.authenticatedUser.id;
+        const credentials = btoa(`${context.authenticatedUser.emailAddress}:${context.authenticatedUser.password}`);
+        const res = await fetch('http://localhost:5000/api/courses', {
+            method: 'POST',
+            body: JSON.stringify({title,
+                                description, 
+                                estimatedTime, 
+                                materialsNeeded, 
+                                userId}),
+            headers: {
+                'Content-Type': 'application/json; charset=utf-8',
+                'Authorization': `Basic ${credentials}`
+            },
+        });
+        if(res.status === 201) {
+            if (res.status === 201) {
+                return [];
+            }
+            else if (res.status === 400) {
+                return res.json()
+                    .then(data => {
+                         return data.errors;
+                    });
+            }
+            else {
+                throw new Error();
+            }
         }
-        axios.post('http://localhost:5000/api/courses', data)
-            .then(res => {setData(res.data);
-                          setTitle('');
-                          setDescription('')
-                          setEstimatedTime('')
-                          setMaterialsNeeded('')
-                        })
-            .catch(err => {
-                setErrors(true);
-            });
     }
+    const handleCancel = (e) => {
+        e.preventDefault();
+        history('/');
+    }
+
+    // const context = useContext(Context);
+    
+    // //creating state
+    // const [title, setTitle] = useState('');
+    // const [description, setDescription] = useState('');
+    // const [estimatedTime, setEstimatedTime] = useState('');
+    // const [materialsNeeded, setMaterialsNeeded] = useState('');
+    // const [errors, setErrors] = useState(false);
+    // const [data, setData] = useState(null);
+
+    // const handleSubmit = (e) => {
+    //     e.preventDefault();
+    //     setErrors(false);
+    //     const data = {
+    //         title: title,
+    //         description: description,
+    //         estimatedTime: estimatedTime,
+    //         materialsNeeded: materialsNeeded,
+    //         userId: context.authenticatedUser.id 
+    //     }
+    //     axios.post('http://localhost:5000/api/courses', data)
+    //         .then(res => {setData(res.data);
+    //                       setTitle(res.data.title);
+    //                       setDescription(res.data.title);
+    //                       setEstimatedTime(res.data.title)
+    //                       setMaterialsNeeded(res.data.title)
+    //                     })
+    //         .catch(err => {
+    //             setErrors(true);
+    //         });
+    // }
 
     return (
         <main>
@@ -64,7 +111,7 @@ export default function CreateCoures() {
                             <label htmlFor="courseTitle">Course Title</label>
                             <input id="courseTitle" name="courseTitle" type="text" value={title} onChange={(e) => setTitle(e.target.value)} />
 
-                            <p>By Joe Smith</p>
+                            <p>By {context.authenticatedUser.firstName} {context.authenticatedUser.lastName}</p>
 
                             <label htmlFor="courseDescription">Course Description</label>
                             <textarea id="courseDescription" name="courseDescription" value={description} onChange={(e) => setDescription(e.target.value)}></textarea>
@@ -77,10 +124,9 @@ export default function CreateCoures() {
                             <textarea id="materialsNeeded" name="materialsNeeded" value={materialsNeeded} onChange={(e) => setMaterialsNeeded(e.target.value)}></textarea>
                         </div>
                     </div>
-                    <button className="button" onClick="submit">Create Course</button><Link className="button button-secondary" to="/">Cancel</Link>
+                    <button className="button" onClick="submit">Create Course</button><Link className="button button-secondary" onClick={handleCancel}>Cancel</Link>
                 </form>
             </div>
         </main>
     )
-}
-    
+}  
