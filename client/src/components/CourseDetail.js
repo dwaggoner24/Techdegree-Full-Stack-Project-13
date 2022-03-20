@@ -11,8 +11,6 @@ export default function CourseDetail() {
     const [courseUser, setUser] = useState('');
 
     //obtains the course info from the API 
-    
-
     useEffect(() => {
         axios.get(`http://localhost:5000/api/courses/${id}`)
             .then(res => {setCourse(res.data);
@@ -21,7 +19,7 @@ export default function CourseDetail() {
             .catch(err => console.log('Oh no! Something went wrong fetching data', err))
         }, [id])
 
-    const deleteCourse = (id) => { //SlackOverflow assistance
+    const deleteCourse = (id) => { //StackOverflow assistance
         let url = `http://localhost:5000/api/courses/${id}`
 
         axios.delete(url)
@@ -38,7 +36,7 @@ export default function CourseDetail() {
         
         <main>
             <div className="actions--bar">
-                <div class="wrap">
+                <div className="wrap">
                     <Link className="button" to={`/courses/${courses.id}/update`}>Update Course</Link>
                     <Link className="button" to ={'/'} onClick={deleteCourse} >Delete Course</Link>
                     <Link className="button button-secondary" to="/">Return to List</Link>

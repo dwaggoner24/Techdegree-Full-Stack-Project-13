@@ -33,32 +33,19 @@ export function Provider(props) {
     
     //declaring state
     const [authenticatedUser, setAuthenticatedUser] = useState(null);
+    const [authenticatedPassword, setAuthenticatedPassword] = useState(null);
 
     const value = {
         authenticatedUser,
+        authenticatedPassword,
         actions: {
             getUser: getUser,
             createUser: createUser,
             signIn: signIn,
             signOut: signOut,
-            // newCourse: newCourse,
 
         },
     };
-
-    // //create new course in API
-    // async function newCourse(course, emailAddress, password) {
-    //     const res = await api(`/courses`, 'POST', course, true, {emailAddress, password});
-    //     if (res.status === 201) {
-    //         return [];
-    //     } else if (res.status === 400) {
-    //         return res.json()
-    //             .then(data => {
-    //                 return data.errors});
-    //     } else {
-    //         throw new Error();
-    //     }
-    // }
 
     //get user from API
     async function getUser(emailAddress, password) {
@@ -96,7 +83,8 @@ export function Provider(props) {
     async function signIn (emailAddress, password) {
         const user = await getUser(emailAddress, password);
         if(user !== null) {
-            setAuthenticatedUser(user);
+            setAuthenticatedUser(user)
+            setAuthenticatedPassword(password)
         };
         return user;
     };

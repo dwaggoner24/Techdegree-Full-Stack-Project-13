@@ -14,10 +14,9 @@ export default function UserSignIn() {
     const handleSubmit = (e) => {
       e.preventDefault();
       context.actions.signIn(emailAddress, password);
-      history('/');
     }
 
-    const cancel = (e) => { //need to figure out why cancel doesn't work
+    const handleCancel = (e) => { 
         e.preventDefault();
         history('/');
     }
@@ -34,7 +33,7 @@ export default function UserSignIn() {
                         <input id="emailAddress" name="emailAddress" type="email" value={emailAddress} onChange={(e) => setEmailAddress(e.target.value)} required/>
                         <label htmlFor="password">Password</label>
                         <input id="password" name="password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} required/>
-                        <button className="button" type="submit" onClick={handleSubmit}>Sign In</button><button className="button button-secondary" to="/">Cancel</button>
+                        <button className="button" type="submit" onClick={handleSubmit}>Sign In</button><button className="button button-secondary" onClick={handleCancel}>Cancel</button>
                     </form>
                     <p>Don't have a user account? Click here to <Link to="/signup">sign up</Link>!</p>
                     

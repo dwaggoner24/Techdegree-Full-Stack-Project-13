@@ -1,11 +1,11 @@
 import React, {useState, useContext} from 'react';
 import {Link} from 'react-router-dom';
-import axios from 'axios';
 import {Context} from '../Context';
 
 export default function UserSignUp() {
 
     const context = useContext(Context);
+    
     //declaring state
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
