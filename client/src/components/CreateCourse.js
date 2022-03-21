@@ -2,7 +2,6 @@ import axios from 'axios';
 import React, { useState, useContext, useEffect } from 'react'; 
 import {useNavigate} from 'react-router-dom';
 import {Context} from '../Context';
-import CourseDetail from './CourseDetail';
 
 export default function CreateCourse() {
 

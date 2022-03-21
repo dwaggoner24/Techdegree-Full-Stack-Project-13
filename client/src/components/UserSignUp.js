@@ -1,11 +1,12 @@
 import React, {useState, useContext} from 'react';
-import {Link} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import {Context} from '../Context';
 
 export default function UserSignUp() {
 
     const context = useContext(Context);
-    
+    const history = useNavigate();
+
     //declaring state
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
@@ -15,9 +16,21 @@ export default function UserSignUp() {
     
     const handleSubmit = (e) => {
         e.preventDefault();
-        setErrors([]);
-       
-        context.actions.createUser({firstName, lastName, emailAddress, password});
+        context.actions.createUser({firstName, lastName, emailAddress, password})
+            .then(errors => {
+                if (errors.length) {
+                    setErrors(errors)
+                } else {
+                    context.actions.signIn(emailAddress, password)
+                        .then(() => {
+                            history('/');
+                        });
+                }
+            })
+            .catch((err) => {
+                console.log(err); 
+                history('/error');
+            });
     }
 
     return(

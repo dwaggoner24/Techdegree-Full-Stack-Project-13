@@ -1,11 +1,15 @@
-import React, {useState, useEffect} from 'react';
-import {Link, useParams} from 'react-router-dom';
+import React, {useState, useEffect, useContext} from 'react';
+import {Link, useParams, useNavigate} from 'react-router-dom';
 import axios from 'axios';
+import {Context} from '../Context';
 
 
 export default function CourseDetail() {
+
+    const context = useContext(Context);
+    let history = useNavigate();
+
     //calling state
-    
     let {id} = useParams() //accessing id in router link 
     const [courses, setCourse] = useState('');
     const [courseUser, setUser] = useState('');
@@ -19,17 +23,38 @@ export default function CourseDetail() {
             .catch(err => console.log('Oh no! Something went wrong fetching data', err))
         }, [id])
 
-    const deleteCourse = (id) => { //StackOverflow assistance
-        let url = `http://localhost:5000/api/courses/${id}`
-
-        axios.delete(url)
-            .then(res => {
-                const deleteCourse = courses.filter(course => id !== course.id)
-                setCourse(deleteCourse)
-                console.log('res', res)
+    function deleteCourse(e) { //StackOverflow assistance
+        e.preventDefault();
+        const userId = context.authenticatedUser.id;
+        const authCred = btoa(`${context.authenticatedUser.emailAddress}:${context.authenticatedPassword}`)
+        axios.delete(`http://localhose:5000/api/courses/${id}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json; charset=utf-8',
+                'Authorization': `Basic ${authCred}`
+            },
+            data: {
+                id: userId
+            } 
             })
-            .catch(err => {console.log('Oh no! Something went wrong when deleting data', err);
-        })
+            .then(res => {
+                if(res.status === 401){
+                    history('/forbidden');
+                } else {
+                    history('/');
+                }
+            })
+            .catch(err => {
+                history('/error');
+            });
+        // axios.delete(url)
+        //     .then(res => {
+        //         const deleteCourse = courses.filter(course => id !== course.id)
+        //         setCourse(deleteCourse)
+        //         console.log('res', res)
+        //     })
+        //     .catch(err => {console.log('Oh no! Something went wrong when deleting data', err);
+        // })
     }
     
     return (

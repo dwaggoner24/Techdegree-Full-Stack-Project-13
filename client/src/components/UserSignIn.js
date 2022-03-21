@@ -5,15 +5,29 @@ import {Context} from '../Context';
 export default function UserSignIn() {
 
     const context = useContext(Context);
-    let history = useNavigate //useNavigate instead of useHistory due to react version
+    let history = useNavigate() //useNavigate instead of useHistory due to react version
 
     //state
     const [emailAddress, setEmailAddress] = useState('');
     const [password, setPassword] = useState('');
+    const [errors, setErrors] = useState([]);
 
     const handleSubmit = (e) => {
       e.preventDefault();
-      context.actions.signIn(emailAddress, password);
+      context.actions.signIn(emailAddress, password)
+        .then((user) => {
+            if (user === null) {
+                setErrors(() => {
+                    return {errors: ['Sign-in was unsuccessful']};
+                });
+            } else {
+                history('/')
+            }
+        })
+        .catch((error) => {
+            console.error(error);
+            history('/error');
+        })
       }
     
     const handleCancel = (e) => { 

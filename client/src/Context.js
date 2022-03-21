@@ -3,6 +3,7 @@
 
 
 import React, {useState} from 'react';
+import Cookies from 'js-cookie';
 
 
 export const Context = React.createContext();
@@ -46,6 +47,11 @@ export function Provider(props) {
 
         },
     };
+    return (
+        <Context.Provider value={value}>
+            {props.children}
+        </Context.Provider>
+    )
 
     //get user from API
     async function getUser(emailAddress, password) {
@@ -92,13 +98,24 @@ export function Provider(props) {
     // Signout user
     async function signOut() {
         setAuthenticatedUser(null);
+        Cookies.remove('authenticatedUser');
     };
-
-    return (
-        <Context.Provider value={value}>
-            {props.children}    
-        </Context.Provider>
-    );
 }
 
 export const Consumer = Context.Consumer;
+
+/**
+ * A higher-order component that wraps the provided component in a Context Consumer component.
+ * @param {class} Component - A React component.
+ * @returns {function} A higher-order component.
+ */
+
+export function withContext(Component) {
+    return function ContextComponet(props) {
+        return(
+            <Context.Consumer>
+                {context => <Component {...props} context={context} />}
+            </Context.Consumer>
+        )
+    }
+}
