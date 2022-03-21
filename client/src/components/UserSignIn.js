@@ -14,8 +14,8 @@ export default function UserSignIn() {
     const handleSubmit = (e) => {
       e.preventDefault();
       context.actions.signIn(emailAddress, password);
-    }
-
+      }
+    
     const handleCancel = (e) => { 
         e.preventDefault();
         history('/');

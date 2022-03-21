@@ -1,6 +1,8 @@
+import axios from 'axios';
 import React, { useState, useContext, useEffect } from 'react'; 
 import {useNavigate} from 'react-router-dom';
 import {Context} from '../Context';
+import CourseDetail from './CourseDetail';
 
 export default function CreateCourse() {
 
@@ -18,36 +20,37 @@ export default function CreateCourse() {
     async function handleSubmit(e) { //google resource and context reference
         e.preventDefault();
         setErrors([]);
-        const userId = context.authenticatedUser.id;
+        
         const authCred = btoa(`${context.authenticatedUser.emailAddress}:${context.authenticatedPassword}`);
-        const res = await fetch(`http://localhost:5000/api/courses`, {
+        const res = await fetch('http://localhost:5000/api/courses', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json; charset=utf-8',
-                'Authorization': `Basic ${authCred}`
+                'Authorization': `Basic ${authCred}`, 
+                'Accept': 'application/json'
             },
-            body: JSON.stringify({
-                title,
-                description, 
-                estimatedTime, 
-                materialsNeeded,
-                userId}),
-        });
-        
-        if(res.status === 201) {
-            if (res.status === 201) {
-                history('/'); //directs to home page when course is created to show new course
+            body: JSON.stringify({ //reference from rapidapi.com
+                title: title,
+                description: description, 
+                estimatedTime: estimatedTime, 
+                materialsNeeded: materialsNeeded, 
+                userId: context.authenticatedUser.id}),
+        })
+            if(res.status === 201) {
+                if (res.status === 201) {
+                    history('/'); //directs to home page when course is created to show new course
+                }
+                else if (res.status === 400) {
+                    res.json()
+                        .then(data => {
+                            setErrors([data])
+                            console.log(data);
+                        });
+                }
+                else {
+                    throw new Error();
+                }
             }
-            else if (res.status === 400) {
-                res.json()
-                    .then(data => {
-                        return data.errors;
-                    });
-            }
-            else {
-                throw new Error();
-            }
-        }
     }
 
     //directs to home page when cancel is clicked

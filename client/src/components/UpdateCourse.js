@@ -41,7 +41,8 @@ export default function UpdateCourse() { //external resource
             else if (res.status === 403) {
                 return res.json()
                     .then(data => {
-                         return data.errors;
+                        setErrors([data])
+                        console.log(data);
                     });
             }
             else {
