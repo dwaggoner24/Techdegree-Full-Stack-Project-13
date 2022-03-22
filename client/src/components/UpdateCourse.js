@@ -67,7 +67,7 @@ export default function UpdateCourse() { //external resource
 
 const handleCancel = (e) => {
     e.preventDefault();
-    history('/');
+    history('/courses/:id');
  }
 
  const errorHandler = errors.length ?      //stackoverflow help with writing validation logic

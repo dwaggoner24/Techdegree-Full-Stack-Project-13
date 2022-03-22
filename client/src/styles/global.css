@@ -7,6 +7,7 @@ html {
 }
 body {
     font-family: 'Work Sans', sans-serif;
+    background-color: #e9edf0;
 }
 h2 {
     font-size: 1.5rem;
@@ -112,7 +113,7 @@ header nav a:hover {
     line-height: 1.5;
 }
 .actions--bar {
-    background: #e9e5f0;
+    background: #d6e3f5;
     padding: rem 0;
     margin: -2rem 0 rem;
 }

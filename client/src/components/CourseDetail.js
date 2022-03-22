@@ -57,7 +57,6 @@ export default function CourseDetail() {
                             <Link className="button" onClick={deleteCourse} >Delete Course</Link>
                         </span>
                     ) : null}
-                    
                     <Link className="button button-secondary" to="/">Return to List</Link>
                 </div>
             </div>
