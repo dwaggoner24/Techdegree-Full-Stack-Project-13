@@ -2,6 +2,7 @@ import React, {useState, useEffect, useContext} from 'react';
 import {Link, useParams, useNavigate} from 'react-router-dom';
 import axios from 'axios';
 import {Context} from '../Context';
+import ReactMarkdown from 'react-markdown';
 
 
 export default function CourseDetail() {
@@ -25,17 +26,16 @@ export default function CourseDetail() {
 
     function deleteCourse(e) { //StackOverflow assistance
         e.preventDefault();
-        const userId = context.authenticatedUser.id;
+        const course = context.course.id
         const authCred = btoa(`${context.authenticatedUser.emailAddress}:${context.authenticatedPassword}`)
         axios.delete(`http://localhose:5000/api/courses/${id}`, {
-            method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json; charset=utf-8',
                 'Authorization': `Basic ${authCred}`
             },
             data: {
-                id: userId
-            } 
+                id: course.id 
+            }
             })
             .then(res => {
                 if(res.status === 401){
@@ -46,15 +46,8 @@ export default function CourseDetail() {
             })
             .catch(err => {
                 history('/error');
-            });
-        // axios.delete(url)
-        //     .then(res => {
-        //         const deleteCourse = courses.filter(course => id !== course.id)
-        //         setCourse(deleteCourse)
-        //         console.log('res', res)
-        //     })
-        //     .catch(err => {console.log('Oh no! Something went wrong when deleting data', err);
-        // })
+            });   
+    
     }
     
     return (
@@ -77,7 +70,7 @@ export default function CourseDetail() {
                             <h4 className="course--name">{courses.title}</h4>
                             <p>By {courseUser.firstName} {courseUser.lastName}</p> 
 
-                            <p>{courses.description}</p>
+                            <ReactMarkdown>{courses.description}</ReactMarkdown>
                         </div>
                         <div>
                             <h3 className="course--detail--title">Estimated Time</h3>
@@ -85,13 +78,12 @@ export default function CourseDetail() {
 
                             <h3 className="course--detail--title">Materials Needed</h3>
                             <ul className="course--detail--list">
-                                <li>{courses.materialsNeeded}</li>
+                                <ReactMarkdown>{courses.materialsNeeded}</ReactMarkdown>
                             </ul>
                         </div>
                     </div>
                 </form>
             </div>
         </main>
-    );
-
-};
+    )
+  }

@@ -50,8 +50,8 @@ export default function App() {
               <Route path="/signin" element={<UserSignInWithContext />} />
               <Route path="/signup" element={<UserSignUpWithContext />} />
               <Route path="/signout" element={<UserSignOutWithContext />} />
-              <Route path="/courses/create" element={<CreateCourseWithContext />} />
-              <Route path="/courses/:id/update" element={<UpdateCourseWithContext />} />
+              <Route path="/courses/create" element={<PrivateRoute />}><Route path="" element={<CreateCourseWithContext />} /></Route>
+              <Route path="/courses/:id/update" element={<PrivateRoute />}><Route path="" element={<UpdateCourseWithContext />} /></Route>
               <Route path="/courses/:id" element={<CourseDetailWithContext />} />
               <Route element={<NotFoundWithContext />} />
               <Route exact path="/forbidden" element={<ForbiddenWithContext />}/>

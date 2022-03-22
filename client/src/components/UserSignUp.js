@@ -37,6 +37,20 @@ export default function UserSignUp() {
         <main>
             <div className="form--centered">
                 <h2>Sign Up</h2>
+                {
+                    errors.length ?
+                    <div className="validation--errors">
+                        <h3>Validation Errors</h3>
+                        <ul>
+                            {errors.map((error, i) => {
+                                return (
+                                    <li key={i}>{error}</li>
+                                )
+                            })
+                          }
+                        </ul>
+                    </div> : null 
+                }
                 
                 <form>
                     <label htmlFor="firstName">First Name</label>

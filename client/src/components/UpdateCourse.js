@@ -37,8 +37,9 @@ export default function UpdateCourse() { //external resource
         if(res.status === 204) { //thrown in the put method in api
             if (res.status === 204) {
                 history('/');
-            }
-            else if (res.status === 403) {
+            } else if(res.status === 403) {
+                history('/forbidden');
+            } else if (res.status === 403) {
                 return res.json()
                     .then(data => {
                         setErrors([data])
@@ -73,6 +74,20 @@ const handleCancel = (e) => {
         <main>
             <div className="wrap">
                 <h2>Update Course</h2>
+                {
+                    errors.length ?
+                    <div className="validation--errors">
+                        <h3>Validation Errors</h3>
+                        <ul>
+                            {errors.map((error, i) => {
+                                return (
+                                    <li key={i}>{error}</li>
+                                )
+                            })
+                          }
+                        </ul>
+                    </div> : null 
+                }
                 <form>
                     <div className="main--flex">
                         <div>

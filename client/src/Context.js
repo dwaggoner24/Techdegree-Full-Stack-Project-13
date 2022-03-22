@@ -33,8 +33,8 @@ const api = (path, method, body = null, requireAuth = false, credentials = null)
 export function Provider(props) {
     
     //declaring state
-    const [authenticatedUser, setAuthenticatedUser] = useState(null);
-    const [authenticatedPassword, setAuthenticatedPassword] = useState(null);
+    const [authenticatedUser, setAuthenticatedUser] = useState(JSON.parse(Cookies.get('authenticatedUser') || null));
+    const [authenticatedPassword, setAuthenticatedPassword] = useState(Cookies.get('password') || null);
 
     const value = {
         authenticatedUser,
@@ -91,7 +91,9 @@ export function Provider(props) {
         if(user !== null) {
             setAuthenticatedUser(user)
             setAuthenticatedPassword(password)
+            Cookies.set('authenticatedUser', JSON.stringify(user), {expires: 1});
         };
+        
         return user;
     };
 

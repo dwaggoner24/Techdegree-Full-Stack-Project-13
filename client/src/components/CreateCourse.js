@@ -38,6 +38,8 @@ export default function CreateCourse() {
             if(res.status === 201) {
                 if (res.status === 201) {
                     history('/'); //directs to home page when course is created to show new course
+                } else if (res.status === 401) {
+                    history('/forbidden')
                 }
                 else if (res.status === 400) {
                     res.json()
@@ -63,8 +65,8 @@ export default function CreateCourse() {
             <div className="wrap">
                 <h2>Create Course</h2>
                 {
-                    errors.length > 0 ?
-                    (<div className="validation--errors">
+                    errors.length ?
+                    <div className="validation--errors">
                         <h3>Validation Errors</h3>
                         <ul>
                             {errors.map((error, i) => {
@@ -74,7 +76,7 @@ export default function CreateCourse() {
                             })
                           }
                         </ul>
-                    </div>) : null 
+                    </div> : null 
                 }
                 
                 <form onSubmit={handleSubmit}>
