@@ -60,25 +60,17 @@ export default function CreateCourse() {
         history('/');
     }
 
+    const errorHandler = errors.length ?      //stackoverflow help with writing validation logic
+        <div className="validation--errors">
+            <h3>Validation Errors</h3>
+                <ul>{errors.map((error, i) => {return (<li key={i}>{error}</li>)})}</ul>
+        </div> : null 
+
     return (
         <main>
             <div className="wrap">
                 <h2>Create Course</h2>
-                {
-                    errors.length ?
-                    <div className="validation--errors">
-                        <h3>Validation Errors</h3>
-                        <ul>
-                            {errors.map((error, i) => {
-                                return (
-                                    <li key={i}>{error}</li>
-                                )
-                            })
-                          }
-                        </ul>
-                    </div> : null 
-                }
-                
+               {errorHandler}
                 <form onSubmit={handleSubmit}>
                     <div className="main--flex">
                         <div>

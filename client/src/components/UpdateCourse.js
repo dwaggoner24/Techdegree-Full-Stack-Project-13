@@ -70,24 +70,17 @@ const handleCancel = (e) => {
     history('/');
  }
 
+ const errorHandler = errors.length ?      //stackoverflow help with writing validation logic
+        <div className="validation--errors">
+            <h3>Validation Errors</h3>
+                <ul>{errors.map((error, i) => {return (<li key={i}>{error}</li>)})}</ul>
+        </div> : null 
+
     return(
         <main>
             <div className="wrap">
                 <h2>Update Course</h2>
-                {
-                    errors.length ?
-                    <div className="validation--errors">
-                        <h3>Validation Errors</h3>
-                        <ul>
-                            {errors.map((error, i) => {
-                                return (
-                                    <li key={i}>{error}</li>
-                                )
-                            })
-                          }
-                        </ul>
-                    </div> : null 
-                }
+                {errorHandler}
                 <form>
                     <div className="main--flex">
                         <div>

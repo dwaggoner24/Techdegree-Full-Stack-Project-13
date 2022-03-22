@@ -7,13 +7,14 @@ import ReactMarkdown from 'react-markdown';
 
 export default function CourseDetail() {
 
+    // const {authenticatedUser} = useContext(Context);
     const context = useContext(Context);
     let history = useNavigate();
 
     //calling state
     let {id} = useParams() //accessing id in router link 
     const [courses, setCourse] = useState('');
-    const [courseUser, setUser] = useState('');
+    const [user, setUser] = useState('');
 
     //obtains the course info from the API 
     useEffect(() => {
@@ -24,19 +25,15 @@ export default function CourseDetail() {
             .catch(err => console.log('Oh no! Something went wrong fetching data', err))
         }, [id])
 
+    //deletes the course based on id
     function deleteCourse(e) { //StackOverflow assistance
         e.preventDefault();
-        const course = context.course.id
         const authCred = btoa(`${context.authenticatedUser.emailAddress}:${context.authenticatedPassword}`)
-        axios.delete(`http://localhose:5000/api/courses/${id}`, {
+        axios.delete(`http://localhost:5000/api/courses/${id}`, {
             headers: {
                 'Content-Type': 'application/json; charset=utf-8',
                 'Authorization': `Basic ${authCred}`
-            },
-            data: {
-                id: course.id 
-            }
-            })
+            }})
             .then(res => {
                 if(res.status === 401){
                     history('/forbidden');
@@ -47,7 +44,6 @@ export default function CourseDetail() {
             .catch(err => {
                 history('/error');
             });   
-    
     }
     
     return (
@@ -55,8 +51,13 @@ export default function CourseDetail() {
         <main>
             <div className="actions--bar">
                 <div className="wrap">
-                    <Link className="button" to={`/courses/${courses.id}/update`}>Update Course</Link>
-                    <Link className="button" to ={'/'} onClick={deleteCourse} >Delete Course</Link>
+                    {context.authenticatedUser && context.authenticatedUser.id === courses.userId ? (
+                        <span>
+                            <Link className="button" to={`/courses/${courses.id}/update`}>Update Course</Link>
+                            <Link className="button" onClick={deleteCourse} >Delete Course</Link>
+                        </span>
+                    ) : null}
+                    
                     <Link className="button button-secondary" to="/">Return to List</Link>
                 </div>
             </div>
@@ -68,7 +69,7 @@ export default function CourseDetail() {
                         <div>
                             <h3 className="course--detail--title">Course</h3>
                             <h4 className="course--name">{courses.title}</h4>
-                            <p>By {courseUser.firstName} {courseUser.lastName}</p> 
+                            <p>By {user.firstName} {user.lastName}</p> 
 
                             <ReactMarkdown>{courses.description}</ReactMarkdown>
                         </div>
