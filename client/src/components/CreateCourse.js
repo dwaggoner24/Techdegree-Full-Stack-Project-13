@@ -3,6 +3,8 @@ import React, { useState, useContext, useEffect } from 'react';
 import {useNavigate} from 'react-router-dom';
 import {Context} from '../Context';
 
+
+//function creates a new course in the API
 export default function CreateCourse() {
 
     let history = useNavigate();

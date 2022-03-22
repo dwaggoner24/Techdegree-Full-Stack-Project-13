@@ -16,6 +16,7 @@ export default function UpdateCourse() { //external resource
     const [materialsNeeded, setMaterialsNeeded] = useState('');
     const [errors, setErrors] = useState([]);
 
+//function updates course in the API database
     async function updateCourse(e) { //google resource and context reference
         e.preventDefault();
         setErrors([]);
@@ -52,7 +53,7 @@ export default function UpdateCourse() { //external resource
         }
     }
 
-
+//retrieves the course from the database that user wishes to update based on id
     useEffect(() => {
         axios.get(`http://localhost:5000/api/courses/${id}`)
             .then (res => {

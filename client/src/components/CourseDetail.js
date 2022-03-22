@@ -51,12 +51,13 @@ export default function CourseDetail() {
         <main>
             <div className="actions--bar">
                 <div className="wrap">
+                {/* only shows buttons if authenticated user and course owner id match */}
                     {context.authenticatedUser && context.authenticatedUser.id === courses.userId ? (
-                        <span>
+                        <>
                             <Link className="button" to={`/courses/${courses.id}/update`}>Update Course</Link>
-                            <Link className="button" onClick={deleteCourse} >Delete Course</Link>
-                        </span>
-                    ) : null}
+                            <Link className="button" to="/" onClick={deleteCourse} >Delete Course</Link>
+                        </>
+                    ) : (null)}
                     <Link className="button button-secondary" to="/">Return to List</Link>
                 </div>
             </div>
