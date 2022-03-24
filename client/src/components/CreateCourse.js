@@ -63,10 +63,10 @@ export default function CreateCourse() {
     }
 
     const errorHandler = errors.length ?      //stackoverflow help with writing validation logic
-        <div className="validation--errors">
-            <h3>Validation Errors</h3>
-                <ul>{errors.map((error, i) => {return (<li key={i}>{error}</li>)})}</ul>
-        </div> : null 
+    (<div className="validation--errors">
+        <h3>Validation Errors</h3>
+            <ul>{errors.map((error, i) => {return (<li key={i}>{error}</li>)})}</ul>
+    </div>) : (null)
 
     return (
         <main>

@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useContext} from 'react';
-import {Link, useParams, useNavigate} from 'react-router-dom';
+import {useParams, useNavigate} from 'react-router-dom';
 import {Context} from '../Context';
 import axios from 'axios';
 
@@ -20,7 +20,6 @@ export default function UpdateCourse() { //external resource
     async function updateCourse(e) { //google resource and context reference
         e.preventDefault();
         setErrors([]);
-        const userId = context.authenticatedUser.id;
         const authCred = btoa(`${context.authenticatedUser.emailAddress}:${context.authenticatedPassword}`)
         const res = await fetch(`http://localhost:5000/api/courses/${id}`, {
             method: 'PUT',
@@ -68,14 +67,14 @@ export default function UpdateCourse() { //external resource
 
 const handleCancel = (e) => {
     e.preventDefault();
-    history('/courses/:id');
+    history(`/courses/${id}`);
  }
 
  const errorHandler = errors.length ?      //stackoverflow help with writing validation logic
-        <div className="validation--errors">
-            <h3>Validation Errors</h3>
-                <ul>{errors.map((error, i) => {return (<li key={i}>{error}</li>)})}</ul>
-        </div> : null 
+ (<div className="validation--errors">
+     <h3>Validation Errors</h3>
+         <ul>{errors.map((error, i) => (<li key={i}>{error}</li>))}</ul>
+ </div>) : (null) 
 
     return(
         <main>
@@ -109,77 +108,3 @@ const handleCancel = (e) => {
 }
 
 
-// export default function UpdateCourse() { //external resource
-    
-//     const context = useContext(Context);
-//     let history = useNavigate();
-
-//     let {id} = useParams()
-
-//     const [title, setTitle] = useState('');
-//     const [description, setDescription] = useState('');
-//     const [estimatedTime, setEstimatedTime] = useState('');
-//     const [materialsNeeded, setMaterialsNeeded] = useState('');
-//     const [errors, setErrors] = useState(false);
-//     const [data, setData] = useState()
-
-//     const updateCourse = (e) => {
-//         setErrors(false);
-//         e.preventDefault();
-
-    //     const userId = context.authenticatedUser.id;
-        
-    //     fetch(`http://localhost:5000/api/courses/${id}`, {
-    //         method: 'PUT', 
-    //         headers: {
-    //             'Content-Type': 'application/json; charset=utf-8',
-    //         },
-    //         body: JSON.stringify({title,
-    //             description, 
-    //             estimatedTime, 
-    //             materialsNeeded, 
-    //             userId}),
-    //         })
-    //         .then(res => res.json())
-    //         .then(res => {console.log(res);
-    //         })
-    //         .catch(err => {console.log('Oh no! Something went wrong fetching data', err);
-    //         })
-    //     }
-    
-    // const handleCancel = (e) => {
-    //     e.preventDefault();
-    //     history('/');
-    // }
-    //     const data = {
-    //         title: title,
-    //         description: description,
-    //         estimatedTime: estimatedTime,
-    //         materialsNeeded: materialsNeeded,
-    //         userId: context.authenticatedUser.id
-    //     }
-
-    //     axios.put(`http://localhost:5000/api/courses/${id}`, data)
-    //         .then(res => {setData(res.data);})
-    //         .catch(err => {console.log('Oh no! Something went wrong fetching data', err);
-    //     })
-    // }
-
-    // useEffect(() => {
-    //     axios.get(`http://localhost:5000/api/courses/${id}`, data)
-    //         .then(res => {setData(res.data);
-    //                       setTitle(res.data.title);
-    //                       setDescription(res.data.description);
-    //                       setEstimatedTime(res.data.estimatedTime);
-    //                       setMaterialsNeeded(res.data.materialsNeeded);
-    //                     })
-    //         .catch(err => {
-    //             setErrors(true);
-    //         });
-    // }, []);
-
-    // const handleCancel = (e) => {
-    //     e.preventDefault();
-    //     history('/');
-    //     }
-    

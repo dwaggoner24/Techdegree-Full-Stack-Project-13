@@ -3,8 +3,6 @@
 
 
 import React, {useState} from 'react';
-import Cookies from 'js-cookie';
-
 
 export const Context = React.createContext();
 
@@ -33,8 +31,8 @@ const api = (path, method, body = null, requireAuth = false, credentials = null)
 export function Provider(props) {
     
     //declaring state
-    const [authenticatedUser, setAuthenticatedUser] = useState(Cookies.get('authenticatedUser') ? JSON.parse(Cookies.get('authenticatedUser')) : null); //TH Workshop
-    const [authenticatedPassword, setAuthenticatedPassword] = useState(Cookies.get('password') ? JSON.parse(Cookies.get('authenticatedPassword')) : null);
+    const [authenticatedUser, setAuthenticatedUser] = useState(); //TH Workshop
+    const [authenticatedPassword, setAuthenticatedPassword] = useState();
  
 
     const value = {
@@ -92,8 +90,6 @@ export function Provider(props) {
         if(user !== null) {
             setAuthenticatedUser(user);
             setAuthenticatedPassword(password);
-            Cookies.set('authenticatedUser', JSON.stringify(user));
-            Cookies.set('password', JSON.stringify(password)); //leaving out expires param so default removes cookie when browser closes
         };
         return user;
     };
@@ -102,8 +98,6 @@ export function Provider(props) {
     async function signOut() {
         setAuthenticatedUser(null);
         setAuthenticatedPassword(null);
-        Cookies.remove('authenticatedUser');
-        Cookies.remove('password');
     };
 }
 

@@ -53,7 +53,7 @@ export default function UserSignUp() {
                     <input id="emailAddress" name="emailAddress" type="email" value={emailAddress} onChange={(e) => setEmailAddress(e.target.value)} />
                     <label htmlFor="password">Password</label>
                     <input id="password" name="password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
-                    <button className="button" type="submit" onClick={handleSubmit}>Sign Up</button><button className="button button-secondary" to="/">Cancel</button>
+                    <button className="button" type="submit" onClick={handleSubmit}>Sign Up</button><Link className="button button-secondary" to="/">Cancel</Link>
                 </form>
                 <p>Already have a user account? Click here to <Link to="/signin">sign in</Link>!</p>
             </div>
