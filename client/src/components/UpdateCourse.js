@@ -41,12 +41,9 @@ export default function UpdateCourse() { //external resource
                 history('/forbidden');
             } else if (res.status === 403) {
                 return res.json()
-                    // .then(data => {
-                    //     setErrors(data.errors)      
-                        .then(errors => {
-                            if(errors.length){
-                                setErrors(errors)
-                            }   
+                    .then(data => {
+                        setErrors(data.errors)      
+                     
                 });
             }
             else {
