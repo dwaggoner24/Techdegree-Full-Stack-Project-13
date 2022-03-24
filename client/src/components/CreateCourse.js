@@ -36,23 +36,19 @@ export default function CreateCourse() {
                 materialsNeeded: materialsNeeded, 
                 userId: context.authenticatedUser.id}),
         })
-            if(res.status === 201) {
-                if (res.status === 201) {
-                    history('/'); //directs to home page when course is created to show new course
-                } else if (res.status === 401) {
-                    history('/forbidden')
-                }
-                else if (res.status === 400) {
-                    res.json()
-                        .then(data => {
-                            setErrors(data.errors);
-                        
-                        });
-                }
-                else {
-                    throw new Error();
-                }
-            }
+
+        if (res.status === 201) {
+            history('/'); //directs to home page when course is created to show new course
+          } else if (res.status === 401) {
+            history('/forbidden')
+          } else if (res.status === 400) {
+            res.json()
+              .then(data => {
+                setErrors(data.errors)
+              });
+          } else {
+            throw new Error();
+          }
     }
 
     // directs to home page when cancel is clicked

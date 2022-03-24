@@ -34,22 +34,19 @@ export default function UpdateCourse() { //external resource
                 materialsNeeded}),
         });
 
-        if(res.status === 204) { //thrown in the put method in api
-            if (res.status === 204) {
-                history('/');
-            } else if(res.status === 403) {
-                history('/forbidden');
-            } else if (res.status === 403) {
-                return res.json()
-                    .then(data => {
-                        setErrors(data.errors)      
-                     
-                });
-            }
-            else {
-                throw new Error();
-            }
-        }
+        if (res.status === 204) { //thrown in the put method in api
+            history('/');
+          } else if (res.status === 403) {
+            history('/forbidden');
+          } else if (res.status === 403) {
+            res.json()
+              .then(data => {
+                setErrors(data.errors)
+                console.log(data);
+              });
+          } else {
+            throw new Error();
+          }
     }
 
 //retrieves the course from the database that user wishes to update based on id
