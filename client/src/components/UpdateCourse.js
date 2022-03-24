@@ -41,10 +41,13 @@ export default function UpdateCourse() { //external resource
                 history('/forbidden');
             } else if (res.status === 403) {
                 return res.json()
-                    .then(data => {
-                        setErrors([data])
-                        console.log(data);
-                    });
+                    // .then(data => {
+                    //     setErrors(data.errors)      
+                        .then(errors => {
+                            if(errors.length){
+                                setErrors(errors)
+                            }   
+                });
             }
             else {
                 throw new Error();
@@ -70,7 +73,7 @@ const handleCancel = (e) => {
     history(`/courses/${id}`);
  }
 
- const errorHandler = errors.length ?      //stackoverflow help with writing validation logic
+ const errorHandler = errors.length ?   //stackoverflow help with writing validation logic
  (<div className="validation--errors">
      <h3>Validation Errors</h3>
          <ul>{errors.map((error, i) => {return (<li key={i}>{error}</li>)})}</ul>

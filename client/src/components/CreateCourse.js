@@ -45,8 +45,8 @@ export default function CreateCourse() {
                 else if (res.status === 400) {
                     res.json()
                         .then(data => {
-                            setErrors([data])
-                            console.log(data);
+                            setErrors(data.errors);
+                        
                         });
                 }
                 else {
@@ -65,7 +65,7 @@ export default function CreateCourse() {
     (<div className="validation--errors">
         <h3>Validation Errors</h3>
             <ul>{errors.map((error, i) => {return (<li key={i}>{error}</li>)})}</ul>
-    </div>) : (null)
+    </div>) : null
 
     return (
         <main>
