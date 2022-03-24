@@ -62,7 +62,7 @@ export default function UpdateCourse() { //external resource
                 setMaterialsNeeded(res.data.materialsNeeded);
                 })
             .catch(err => {console.log('Oh no! Something went wrong fetching data', err);})
-            }, []);
+            }, [id]);
 
 
 const handleCancel = (e) => {
@@ -73,7 +73,7 @@ const handleCancel = (e) => {
  const errorHandler = errors.length ?      //stackoverflow help with writing validation logic
  (<div className="validation--errors">
      <h3>Validation Errors</h3>
-         <ul>{errors.map((error, i) => (<li key={i}>{error}</li>))}</ul>
+         <ul>{errors.map((error, i) => {return (<li key={i}>{error}</li>)})}</ul>
  </div>) : (null) 
 
     return(
@@ -100,7 +100,7 @@ const handleCancel = (e) => {
                             <textarea id="materialsNeeded" name="materialsNeeded" value={materialsNeeded} onChange={(e) => setMaterialsNeeded(e.target.value)}>{materialsNeeded}</textarea>
                         </div>
                     </div>
-                    <button className="button" type="submit" onClick={updateCourse}>Update Course</button><a className="button button-secondary" onClick={handleCancel}>Cancel</a>
+                    <button className="button" type="submit" onClick={updateCourse}>Update Course</button><button className="button button-secondary" onClick={handleCancel}>Cancel</button>
                 </form>
             </div>
         </main>

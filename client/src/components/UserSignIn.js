@@ -10,16 +10,14 @@ export default function UserSignIn() {
     //state
     const [emailAddress, setEmailAddress] = useState('');
     const [password, setPassword] = useState('');
-    const [errors, setErrors] = useState([]);
 
+    //obtains the user through context/makes sure user already has an account
     const handleSubmit = (e) => {
       e.preventDefault();
       context.actions.signIn(emailAddress, password)
         .then((user) => {
             if (user === null) {
-                setErrors(() => {
                     return {errors: ['Sign-in was unsuccessful']};
-                });
             } else {
                 history('/')
             }
@@ -30,6 +28,7 @@ export default function UserSignIn() {
         })
       }
     
+      //handles cancel and navigates to the home page when cancel is clicked
     const handleCancel = (e) => { 
         e.preventDefault();
         history('/');

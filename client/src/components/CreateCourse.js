@@ -1,5 +1,4 @@
-import axios from 'axios';
-import React, { useState, useContext, useEffect } from 'react'; 
+import React, { useState, useContext } from 'react'; 
 import {useNavigate} from 'react-router-dom';
 import {Context} from '../Context';
 
@@ -17,7 +16,7 @@ export default function CreateCourse() {
     const [materialsNeeded, setMaterialsNeeded] = useState('');
     const [errors, setErrors] = useState([]);
 
-
+//on submit, function creates new course in the api using the POST method 
     async function handleSubmit(e) { //google resource and context reference
         e.preventDefault();
         setErrors([]);
@@ -56,7 +55,7 @@ export default function CreateCourse() {
             }
     }
 
-    //directs to home page when cancel is clicked
+    // directs to home page when cancel is clicked
     const handleCancel = (e) => {
         e.preventDefault();
         history('/');
@@ -92,7 +91,7 @@ export default function CreateCourse() {
                             <textarea id="materialsNeeded" name="materialsNeeded" value={materialsNeeded} onChange={(e) => setMaterialsNeeded(e.target.value)}></textarea>
                         </div>
                     </div>
-                    <button className="button" onClick={handleSubmit}>Create Course</button><a className="button button-secondary" onClick={handleCancel}>Cancel</a>
+                    <button className="button" onClick={handleSubmit}>Create Course</button><button className="button button-secondary" onClick={handleCancel}>Cancel</button>
                 </form>
             </div>
         </main>

@@ -14,6 +14,7 @@ export default function UserSignUp() {
     const [password, setPassword] = useState('');
     const [errors, setErrors] = useState([]);
     
+    //sends a get request via context to the API to create new user
     const handleSubmit = (e) => {
         e.preventDefault();
         context.actions.createUser({firstName, lastName, emailAddress, password})
