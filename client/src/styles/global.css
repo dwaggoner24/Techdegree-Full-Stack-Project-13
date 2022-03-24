@@ -7,7 +7,6 @@ html {
 }
 body {
     font-family: 'Work Sans', sans-serif;
-    background-color: #e9edf0;
 }
 h2 {
     font-size: 1.5rem;
@@ -27,7 +26,7 @@ a {
 .wrap {
     max-width: 1250px;
     margin: 0 auto;
-    padding: 1rem;
+    padding: 0 1rem;
 }
 header {
     background: #2c4152;
@@ -41,7 +40,7 @@ header {
     align-items: center;
 }
 .header--logo a {
-    font-size: 2rem;
+    font-size: 1.25rem;
     color: #fff;
 }
 header li {
@@ -63,7 +62,7 @@ header nav a:hover {
     margin-left: .5rem;
 }
 .course--module {
-    background: #446683;
+    background:  #446683;
     border-radius: .5rem;
     padding: 1.5rem;
     margin-bottom: 1.5rem;
@@ -78,26 +77,26 @@ header nav a:hover {
 .course--title {
     color: #fff;
     font-weight: 700;
-    font-size: 1.50rem;
+    font-size: 1.25rem;
 }
 .course--add--module {
     background: #b5bec7;
     color: #2c4152;
     font-weight: 300;
-    font-size: 1.5rem;
+    font-size: 1.25rem;
 }
 .course--add--title .add {
     width: 20px;
     height: auto;
     margin-right: 5px;
-    fill: #2c4152;
+    fill:  #2c4152;
 }
 .course--detail--title {
     padding-bottom: .25rem;
     border-bottom: 1px solid #888;
     margin: 3rem 0 .5rem;
     font-size: .9rem;
-    color: #1e2831;
+    color:  #1e2831;
     text-transform: uppercase;
     letter-spacing: 2px;
 }
@@ -113,9 +112,9 @@ header nav a:hover {
     line-height: 1.5;
 }
 .actions--bar {
-    background: #d6e3f5;
-    padding: rem 0;
-    margin: -2rem 0 rem;
+    background:  #d6e3f5;
+    padding: 1rem 0;
+    margin: -2rem 0 2rem;
 }
 .validation--errors {
     background: #e9e5f0;
@@ -158,7 +157,7 @@ input, textarea {
     width: 100%;
     color: #1e2831;
     border-radius: .5rem;
-    border: 1px solid #8c789b;
+    border: 1px solid  #8c789b;
     padding: .5rem;
     margin-bottom: 1rem;
     font-family: 'Work Sans', sans-serif;
@@ -185,24 +184,24 @@ textarea {
     margin-bottom: 0;
 }
 .button:not(.button-secondary):hover {
-    background: #2f4150;
+    background:  #2f4150;
     cursor: pointer;
 }
 .button-secondary {
-    color: #1e2831;
+    color:  #1e2831;
     background: none;
     box-shadow: 0 0 0 2px #1e2831 inset;
     transition: box-shadow 0.2s, color 0.2s;
 }
 .button-secondary:hover {
-    color: #3d5b75;
+    color:  #3d5b75;
     box-shadow: 0 0 0 2px #3d5b75 inset;
     cursor: pointer;
 }
 input:focus, button:focus, .button:focus, textarea:focus {
     border: none;
     border-radius: 0;
-    outline: 2px solid #332a40;
+    outline: 2px solid #1e3f85;
 }
 
 @media screen and (min-width: 600px) {
