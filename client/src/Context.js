@@ -33,8 +33,9 @@ const api = (path, method, body = null, requireAuth = false, credentials = null)
 export function Provider(props) {
     
     //declaring state
-    const [authenticatedUser, setAuthenticatedUser] = useState(JSON.parse(Cookies.get('authenticatedUser') || null));
-    const [authenticatedPassword, setAuthenticatedPassword] = useState(Cookies.get('password') || null);
+    const [authenticatedUser, setAuthenticatedUser] = useState(Cookies.get('authenticatedUser') ? JSON.parse(Cookies.get('authenticatedUser')) : null); //TH Workshop
+    const [authenticatedPassword, setAuthenticatedPassword] = useState(Cookies.get('password') ? JSON.parse(Cookies.get('authenticatedPassword')) : null);
+ 
 
     const value = {
         authenticatedUser,
@@ -89,18 +90,20 @@ export function Provider(props) {
     async function signIn (emailAddress, password) {
         const user = await getUser(emailAddress, password);
         if(user !== null) {
-            setAuthenticatedUser(user)
-            setAuthenticatedPassword(password)
-            Cookies.set('authenticatedUser', JSON.stringify(user), {expires: 1});
+            setAuthenticatedUser(user);
+            setAuthenticatedPassword(password);
+            Cookies.set('authenticatedUser', JSON.stringify(user));
+            Cookies.set('password', JSON.stringify(password)); //leaving out expires param so default removes cookie when browser closes
         };
-        
         return user;
     };
 
     // Signout user
     async function signOut() {
         setAuthenticatedUser(null);
+        setAuthenticatedPassword(null);
         Cookies.remove('authenticatedUser');
+        Cookies.remove('password');
     };
 }
 
