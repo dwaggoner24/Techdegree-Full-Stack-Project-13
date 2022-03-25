@@ -13,16 +13,16 @@ export default function Header() {
                 <nav>
                 {/*Header authentication. Treehouse authentication workshop*/}
                     {context.authenticatedUser ? (
-                        <React.Fragment>
+                        <ul className="header--signedin">
                             <li>Welcome, {context.authenticatedUser.firstName} {context.authenticatedUser.lastName}!</li>
                             <li><Link to="/signout">Sign Out</Link></li>
-                        </React.Fragment>
+                        </ul>
                     ) : (
                         <React.Fragment>
                             <ul className="header--signedout">
                                 <li><Link to="/signup">Sign Up</Link></li>
                                 <li><Link to="/signin">Sign In</Link></li>
-                             </ul>
+                            </ul>
                         </React.Fragment>
                     )}
                 </nav>
