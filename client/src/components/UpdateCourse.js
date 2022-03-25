@@ -38,7 +38,7 @@ export default function UpdateCourse() { //external resource
             history('/');
           } else if (res.status === 403) {
             history('/forbidden');
-          } else if (res.status === 403) {
+          } else if (res.status === 400) {
             res.json()
               .then(data => {
                 setErrors(data.errors)
