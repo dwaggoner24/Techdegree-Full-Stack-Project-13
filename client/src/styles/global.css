@@ -47,6 +47,7 @@ header {
 header li {
     font-size: .8rem;
 }
+
 header nav a {
     color: rgb(190, 209, 236);
 }
@@ -73,18 +74,18 @@ header nav a:hover {
     color: #fff;
     font-size: .9rem;
     font-weight: 400;
-    margin-bottom: .5rem;
+    margin-bottom: .25rem;
 }
 .course--title {
     color: #fff;
     font-weight: 700;
-    font-size: 1rem;
+    font-size: 1.25rem;
 }
 .course--add--module {
     background: #b5bec7;
     color: #2c4152;
     font-weight: 300;
-    font-size: 1rem;
+    font-size: 1.25rem;
 }
 .course--add--title .add {
     width: 20px;
@@ -102,7 +103,7 @@ header nav a:hover {
     letter-spacing: 2px;
 }
 .course--name {
-    font-size: 1.5rem;
+    font-size: 2rem;
     margin-bottom: .5rem;
     font-weight: 700;
     color: #1e2831;
@@ -114,7 +115,8 @@ header nav a:hover {
 }
 .actions--bar {
     background:  #d6e3f5;
-    margin: 0 0 2rem;
+    padding: 1rem 0;
+    margin: -2rem 0 2rem;
 }
 .validation--errors {
     background: #e9e5f0;
